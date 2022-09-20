@@ -1,0 +1,31 @@
+Segundo constructor
+Archivo: C:\Users\marco\OneDrive\Escritorio\Lenguajes y automatas 1\Sintaxis_1\suma.cpp
+26/05/2022 09:12:28 p. m.
+# | Caracter
+include | Identificador
+< | OperadorRelacional
+iostream | Identificador
+> | OperadorRelacional
+void | Identificador
+main | Identificador
+( | Caracter
+) | Caracter
+{ | Caracter
+x | Identificador
+= | Asignacion
+( | Caracter
+3 | Numero
++ | OperadorTermino
+5 | Numero
+) | Caracter
+* | OperadorFactor
+8 | Numero
+- | OperadorTermino
+( | Caracter
+10 | Numero
+- | OperadorTermino
+4 | Numero
+) | Caracter
+/ | OperadorFactor
+c | Identificador
+; | FinSentencia
