@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Evalua
+namespace SEMANTICA
 {
     public class Program
     {

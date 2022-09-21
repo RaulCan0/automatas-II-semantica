@@ -1,13 +1,7 @@
 //Alumno Raúl Cano Briseño
-//Requerimiento 1: Eliminar las comillas del printf e interpretar 
-//                las secuencias de escape dentro de la cadena.
-//Requerimiento 2: Marcar los errores sintácticos cuando la variable no exista.
-//Requerimiento 3: Modificar el valor de la variable en la Asignacion.
-//Requerimiento 4: Obtener el valor de la variable cuando se requiera y programar el método getValor()
-//Requerimiento 5: Modificar el valor de la variable en el Scanf.
 using System.Collections.Generic;
 
-namespace Evalua
+namespace SEMANTICA
 {
     public class Lenguaje : Sintaxis
     {
