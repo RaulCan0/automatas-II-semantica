@@ -1,0 +1,15 @@
+C:\SEMANTICA\bin\Debug\net6.0\SEMANTICA.exe
+C:\SEMANTICA\bin\Debug\net6.0\SEMANTICA.deps.json
+C:\SEMANTICA\bin\Debug\net6.0\SEMANTICA.runtimeconfig.json
+C:\SEMANTICA\bin\Debug\net6.0\SEMANTICA.dll
+C:\SEMANTICA\bin\Debug\net6.0\SEMANTICA.pdb
+C:\SEMANTICA\obj\Debug\net6.0\SEMANTICA.csproj.AssemblyReference.cache
+C:\SEMANTICA\obj\Debug\net6.0\SEMANTICA.GeneratedMSBuildEditorConfig.editorconfig
+C:\SEMANTICA\obj\Debug\net6.0\SEMANTICA.AssemblyInfoInputs.cache
+C:\SEMANTICA\obj\Debug\net6.0\SEMANTICA.AssemblyInfo.cs
+C:\SEMANTICA\obj\Debug\net6.0\SEMANTICA.csproj.CoreCompileInputs.cache
+C:\SEMANTICA\obj\Debug\net6.0\SEMANTICA.dll
+C:\SEMANTICA\obj\Debug\net6.0\refint\SEMANTICA.dll
+C:\SEMANTICA\obj\Debug\net6.0\SEMANTICA.pdb
+C:\SEMANTICA\obj\Debug\net6.0\SEMANTICA.genruntimeconfig.cache
+C:\SEMANTICA\obj\Debug\net6.0\ref\SEMANTICA.dll

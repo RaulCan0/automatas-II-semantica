@@ -1,5 +1,11 @@
-//Alumno Raúl Cano Briseño
+//Alumno Raúl Cano Briseño 
+//Requerimiento 1: Eliminar las comillas del printf e interpretar las secuencias de escape dentro de la cadena.
+//Requerimiento 2: Marcar los errores sintácticos cuando la variable no exista.
+//Requerimiento 3: Modificar el valor de la variable en la Asignacion.
+//Requerimiento 4: Obtener el valor de la variable cuando se requiera y programar el método getValor()
+//Requerimiento 5: Modificar el valor de la variable en el Scanf.
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace SEMANTICA
 {
@@ -21,7 +27,7 @@ namespace SEMANTICA
         }
         private void displayVariables()
         {
-            Log.WriteLine("\nVariables: ");
+            Log.WriteLine("\n\nVariables: ");
             foreach (Variable v in listaVariables)
             {
                 Log.WriteLine(v.getNombre() + " " + v.getTipo() + " " + v.getValue());
@@ -39,31 +45,39 @@ namespace SEMANTICA
         private void modValor(string name, float newValue)
         {
             //Requerimiento 3
-            //Requerimiento 3: Modificar el valor de la variable en la Asignacion.
             foreach (Variable v in listaVariables)
             {
-             if(v .getNombre().Equals(name))
-             {
-                 v.setValor(newValue);
-             }
+                if (v.getNombre().Equals(name))
+                {
+                    v.setValor(newValue);
+                    break;
+                }
             }
-
         }
         private float getValor(string nameVariable)
         {
-           //Requerimiento 4
-           //Requerimiento 4: Obtener el valor de la variable cuando se requiera y programar el método getValor()
-           foreach (Variable v in listaVariables)
-
-           {
-            if (v.getNombre().Equals(nameVariable))
-             {
-                return v.getValue();
-             }
-            
-           }
-           return 0;
-           
+            //Requerimiento 4.
+            float value = 0;
+            foreach (Variable v in listaVariables)
+            {
+                if (v.getNombre().Equals(nameVariable))
+                {
+                    value = v.getValue();
+                    break;
+                }
+            }
+            return value;
+        }
+        private Variable.TipoDato getType(string nameVariable)
+        {
+            foreach (Variable v in listaVariables)
+            {
+                if (v.getNombre().Equals(nameVariable))
+                {
+                    return v.getTipo();
+                }
+            }
+            return Variable.TipoDato.Char;
         }
         //Programa -> Librerias? Variables? Main
         public void Programa()
@@ -116,7 +130,7 @@ namespace SEMANTICA
                 if (!existeVariable(getContenido()))
                     addVariable(getContenido(), type);
                 else
-                    throw new Error("Error de sintáxis. La variable duplicada \"" + getContenido() + "\" en la línea " + linea + ".", Log);
+                    throw new Error("Error de sintáxis. Variable duplicada \"" + getContenido() + "\" en la línea " + linea + ".", Log);
             }
             match(tipos.Identificador);
             if (getContenido() == ",")
@@ -147,20 +161,20 @@ namespace SEMANTICA
         // Instruccion -> Printf | Scanf | If | While | Do | For | Switch | Asignacion
         private void Instruccion()
         {
-            if (getContenido() == "if")
+            if (getContenido() == "printf")
+                Printf();
+            else if (getContenido() == "scanf")
+                Scanf();
+            else if (getContenido() == "if")
                 If();
-            else if (getContenido() == "do")
-                Do();
             else if (getContenido() == "while")
                 While();
+            else if (getContenido() == "do")
+                Do();
             else if (getContenido() == "for")
                 For();
             else if (getContenido() == "switch")
                 Switch();
-            else if (getContenido() == "printf")
-                Printf();
-            else if (getContenido() == "scanf")
-                Scanf();
             else
             {
                 Asignacion();
@@ -168,39 +182,59 @@ namespace SEMANTICA
                 //nextToken();
             }
         }
+         private Variable.TipoDato evaluaNumero(float resultado)
+        {
+            if (resultado <= 255)
+            {
+                return Variable.TipoDato.Char;
+            }
+            else if (resultado <= 65535)
+            {
+                return Variable.TipoDato.Int;
+            }
+            return Variable.TipoDato.Float;
+        }
+        private bool evaluaSemantica(string variable, float resultado)
+        {
+            Variable.TipoDato type = getType(variable);
+            return false;
+        }
         // Asignacion -> identificador = cadena | Expresion ;
         private void Asignacion()
         {
             //Requerimiento 2. Si no existe la variable, se levanta la excepción.
             if (!existeVariable(getContenido()))
-            {
-                throw new Error("Error de sintáxis: La variable no existe \"" + getContenido() + "\" en la línea " + linea + ".", Log);
-            }
-            Log.WriteLine();
-            Log.Write(getContenido() + " = ");
+                throw new Error("\nError de sintaxis en linea " + linea + ". No existe la variable \"" + getContenido() + "\"", Log);
             string name = getContenido();
             match(tipos.Identificador);
-            match("=");
-            Expresion();
-            match(";");
-            float resultado = stackOperandos.Pop();
-            Log.Write("= " + resultado);
-            Log.WriteLine();
-            modValor(name, resultado);
+            if (getContenido() == "=")
+            {
+                Log.WriteLine();
+                Log.Write(name + " = ");
+                match("=");
+                Expresion();
+                match(";");
+                float resultado = stackOperandos.Pop();
+                Log.Write("= " + resultado);
+                Log.WriteLine();
+                modValor(name, resultado);
+            }
+            else
+            {
+                Incremento(name);
+                match(";");
+            }
         }
         // Printf -> printf (string | Expresion);
         private void Printf()
         {
-            //Requerimiento 1: Eliminar las comillas del printf e interpretar 
-           //                las secuencias de escape dentro de la cadena.
             match("printf");
             match("(");
             if (getClasificacion() == tipos.Cadena)
             {
-                string comillas = getContenido();
-                comillas = comillas.Replace("\\n" , "\n");
-                comillas = comillas.Replace("\\t" , "\t");
-                Console.Write(comillas.Substring(1, comillas.Length - 2));
+                string contenido = getContenido();
+                contenido = Regex.Unescape(contenido.Remove(0, 1).Remove(contenido.Length - 2));
+                Console.Write(contenido);
                 match(tipos.Cadena);
             }
             else
@@ -212,7 +246,7 @@ namespace SEMANTICA
             match(";");
         }
         // Scanf -> scanf (string, &Identificador);
-        private void Scanf() 
+        private void Scanf()
         {
             match("scanf");
             match("(");
@@ -221,13 +255,10 @@ namespace SEMANTICA
             match("&");
             //Requerimiento 2. Si no existe la variable, se levanta la excepción.
             if (!existeVariable(getContenido()))
-            {
-                throw new Error("Error de sintáxis: Variable no existe \"" + getContenido() + "\" en la línea " + linea + ".", Log);
-            }
+                throw new Error("\nError de sintaxis en linea " + linea + ". No existe la variable \"" + getContenido() + "\"", Log);
             string value = "" + Console.ReadLine();
-            float valor = float.Parse(value);
             //Requerimiento 5. Modificar el valor de la variable.
-            modValor(getContenido(), valor);
+            modValor(getContenido(), float.Parse(value));
             match(tipos.Identificador);
             match(")");
             match(";");
@@ -296,13 +327,29 @@ namespace SEMANTICA
         // Incremento -> identificador ++ | --
         private void Incremento()
         {
-            string variable = getContenido();
             //Requerimiento 2. Si no existe la variable, se levanta la excepción.
             if (!existeVariable(getContenido()))
-            {
-                throw new Error("Error de sintáxis: Variable no existe \"" + getContenido() + "\" en la línea " + linea + ".", Log);
-            }
+                throw new Error("\nError de sintaxis en linea " + linea + ". No existe la variable \"" + getContenido() + "\"", Log);
+            string variable = getContenido();
             match(tipos.Identificador);
+            if (getClasificacion() == tipos.IncrementoTermino)
+            {
+                if (getContenido()[0] == '+')
+                {
+                    match("++");
+                    modValor(variable, getValor(variable) + 1);
+                }
+                else
+                {
+                    match("--");
+                    modValor(variable, getValor(variable) - 1);
+                }
+            }
+            else
+                match(tipos.IncrementoTermino);
+        }
+        private void Incremento(string variable)
+        {
             if (getClasificacion() == tipos.IncrementoTermino)
             {
                 if (getContenido()[0] == '+')
@@ -345,7 +392,7 @@ namespace SEMANTICA
             }
             match("}");
         }
-        // Lista_Casos -> case Expresion: (Lista_Instrucciones_Case | Bloque_Instrucciones)? (break;)? (Lista_Casos)?
+        // Lista_Casos -> case Expresion: (Lista_Instrucciones_Case | Bloque_Instrucciones)? (break;)? (Lista_Casos)?
         private void Lista_Casos()
         {
             if (getContenido() != "}" && getContenido() != "default")
@@ -459,9 +506,7 @@ namespace SEMANTICA
             {
                 //Requerimiento 2. Si no existe la variable, se levanta la excepción.
                 if (!existeVariable(getContenido()))
-            {
-                throw new Error("Error de sintáxis: Variable no existe \"" + getContenido() + "\" en la línea " + linea + ".", Log);
-            }
+                    throw new Error("\nError de sintaxis en linea " + linea + ". No existe la variable \"" + getContenido() + "\"", Log);
                 Log.Write(getContenido() + " ");
                 stackOperandos.Push(getValor(getContenido()));
                 match(tipos.Identificador);
