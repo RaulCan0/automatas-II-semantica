@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Alumno Raul Cano Briseño
+using System;
 
 namespace SEMANTICA
 {

@@ -1,6 +1,6 @@
 //Alumno Raúl Cano Briseño 
 //Requerimiento 1: Actualizar el dominante para variables en la expresion.
-//Requerimiento 2: Marcar los errores sintácticos cuando la variable no exista.
+//Requerimiento 2: Actualizar el dominante para el casteo
 //Requerimiento 3: Modificar el valor de la variable en la Asignacion.
 //Requerimiento 4: Obtener el valor de la variable cuando se requiera y programar el método getValor()
 //Requerimiento 5: Modificar el valor de la variable en el Scanf.
@@ -137,22 +137,22 @@ namespace SEMANTICA
             }
         }
         // Bloque_Instrucciones -> {Lista_Instrucciones?}
-        private void Bloque_Instrucciones()
+        private void Bloque_Instrucciones(bool evaluacion )
         {
             match("{");
             if (getContenido() != "}")
             {
-                Lista_Instrucciones();
+                Lista_Instrucciones(evaluacion);
             }
             match("}");
         }
         // Lista_Instrucciones -> Instruccion Lista_Instrucciones?
-        private void Lista_Instrucciones()
+        private void Lista_Instrucciones(bool evaluacion)
         {
             Instruccion();
             if (getContenido() != "}")
             {
-                Lista_Instrucciones();
+                Lista_Instrucciones(evaluacion);
             }
         }
         // Instruccion -> Printf | Scanf | If | While | Do | For | Switch | Asignacion
@@ -279,12 +279,12 @@ namespace SEMANTICA
         {
             match("if");
             match("(");
-            Condicion();
+            bool validarIf = Condicion();
             match(")");
             if (getContenido() == "{")
-                Bloque_Instrucciones();
+                Bloque_Instrucciones(validarIf);
             else
-                Instruccion();
+                Instruccion(else);
             if (getContenido() == "else")
             {
                 match("else");
@@ -416,12 +416,31 @@ namespace SEMANTICA
                 Lista_Instrucciones_Case();
         }
         // Condicion -> Expresion operadorRelacional Expresion
-        private void Condicion()
+        private bool Condicion()
         {
             Expresion();
+            String operador = getContenido();
             match(tipos.OperadorRelacional);
             Expresion();
+            float e2 = stackOperandos.Pop();
+            float e1 = stackOperandos.Pop();
             stackOperandos.Pop();
+            switch (operador)
+            {
+                case "==":
+                return e2 == e1;
+                case ">":
+                return e2 == e1;
+                case ">=":
+                return e2 == e1;
+                case "<":
+                return e2 == e1;
+                case "<=":
+                return e2 <= e1;
+                default:
+                return e1 != e2;
+            }
+            return false;
         }
         // Main -> void main() Bloque_Instrucciones 
         private void Main()
@@ -514,7 +533,16 @@ namespace SEMANTICA
             }
             else
             {
+                bool Hubocasteo = false;
+                Variable.TipoDato casteo = Variable.TipoDato.Char;
                 match("(");
+                if (getClasificacion() == tipos.TipoDato)
+                {
+                     Hubocasteo = true;
+                     match(tipos.TipoDato);
+                     match("(");
+                     match(")");
+                }
                 Expresion();
                 match(")");
             }
