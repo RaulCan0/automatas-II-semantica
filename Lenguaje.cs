@@ -220,6 +220,10 @@ namespace SEMANTICA
             float resultado = stackOperandos.Pop();
             Log.Write("= " + resultado);
             Log.WriteLine();
+            if (dominante<getTipo(getContenido))
+            {
+                dominante = getTipo(getContenido());
+            }
             if (dominante < evaluanumero(resultado))
             {
                 dominante = evaluanumero(resultado);
@@ -327,6 +331,11 @@ namespace SEMANTICA
             match(";");
         }
         // For -> for (Asignacion Condición ; Incremento) Bloque_Instrucciones | Instruccion
+    //a)necesito guardar la posicion la posicion de lectura en el archivo de texto de la posicion
+    //meter o  (agregar) un ciclo while 
+    //despues de validar for y es verdadero no debe de entrar
+    //while
+    //{}
         private void For(bool evaluacion)
         {
             match("for");
@@ -447,8 +456,10 @@ namespace SEMANTICA
                 default:
                 return e1 != e2;
             }
-            return false;
-        }
+
+            const bool V = false;
+            return V;
+            }
         // Main -> void main() Bloque_Instrucciones 
         private void Main()
         {
