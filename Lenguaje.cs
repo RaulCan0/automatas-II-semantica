@@ -102,7 +102,8 @@ namespace SEMANTICA
                 Librerias();
             }
         }
-        // Variables -> tipoDato Lista_identificadores ; Variables?
+        // Variables -> tipoDato Lista_identificadores ; Variables?S
+
         private void Variables()
         {
             if (getClasificacion() == tipos.TipoDato)
@@ -149,32 +150,32 @@ namespace SEMANTICA
         // Lista_Instrucciones -> Instruccion Lista_Instrucciones?
         private void Lista_Instrucciones(bool evaluacion)
         {
-            Instruccion();
+            Instruccion(evaluacion);
             if (getContenido() != "}")
             {
                 Lista_Instrucciones(evaluacion);
             }
         }
         // Instruccion -> Printf | Scanf | If | While | Do | For | Switch | Asignacion
-        private void Instruccion()
+        private void Instruccion(bool evaluacion)
         {
             if (getContenido() == "printf")
-                Printf();
+                Printf(evaluacion);
             else if (getContenido() == "scanf")
-                Scanf();
+                Scanf(evaluacion);
             else if (getContenido() == "if")
-                If();
+                If(evaluacion);
             else if (getContenido() == "while")
-                While();
+                While(evaluacion);
             else if (getContenido() == "do")
-                Do();
+                Do(evaluacion);
             else if (getContenido() == "for")
-                For();
+                For(evaluacion);
             else if (getContenido() == "switch")
-                Switch();
+                Switch(evaluacion);
             else
             {
-                Asignacion();
+                Asignacion(evaluacion);
                 //Console.WriteLine("Error de sintaxis. No se reconoce la instruccion: " + getContenido());
                 //nextToken();
             }
@@ -201,7 +202,7 @@ namespace SEMANTICA
             return false;
         }
         // Asignacion -> identificador = cadena | Expresion ;
-        private void Asignacion()
+        private void Asignacion(bool evaluacion)
         {
             //Requerimiento 2. Si no existe la variable, se levanta la excepción.
             if (!existeVariable(getContenido()))
@@ -225,7 +226,10 @@ namespace SEMANTICA
             }
             if(dominante <= getTipo(name))
             {
-                modValor(name, resultado);
+                if(evaluacion)
+                 {
+                   modValor(name, resultado);
+                 }
             }
             else 
             {
@@ -233,7 +237,7 @@ namespace SEMANTICA
             }
         }
         // Printf -> printf (string | Expresion);
-        private void Printf()
+        private void Printf(bool evaluacion)
         {
             match("printf");
             match("(");
@@ -254,7 +258,7 @@ namespace SEMANTICA
             match(";");
         }
         // Scanf -> scanf (string, &Identificador);
-        private void Scanf()
+        private void Scanf(bool evaluacion)
         {
             match("scanf");
             match("(");
@@ -275,7 +279,7 @@ namespace SEMANTICA
             match(";");
         }
         // If -> if (Condicion) Bloque_Instrucciones (else Bloque_Instrucciones)?
-        private void If()
+        private void If(bool evaluacion)
         {
             match("if");
             match("(");
@@ -284,36 +288,38 @@ namespace SEMANTICA
             if (getContenido() == "{")
                 Bloque_Instrucciones(validarIf);
             else
-                Instruccion(else);
+                Instruccion(evaluacion);
             if (getContenido() == "else")
             {
                 match("else");
                 if (getContenido() == "{")
-                    Bloque_Instrucciones();
+                    Bloque_Instrucciones(evaluacion);
                 else
-                    Instruccion();
+                    Instruccion(evaluacion);
             }
         }
         // While -> while(Condicion) Bloque_Instrucciones | Instruccion
-        private void While()
+        private void While(bool evaluacion)
         {
             match("while");
             match("(");
             Condicion();
             match(")");
             if (getContenido() == "{")
-                Bloque_Instrucciones();
+                Bloque_Instrucciones(evaluacion);
             else
-                Instruccion();
+            
+                Instruccion(evaluacion);
+            
         }
         // Do -> do Bloque_Instrucciones | Instruccion while(Condicion);
-        private void Do()
+        private void Do(bool evaluacion)
         {
             match("do");
             if (getContenido() == "{")
-                Bloque_Instrucciones();
+                Bloque_Instrucciones(evaluacion);
             else
-                Instruccion();
+                Instruccion(evaluacion);
             match("while");
             match("(");
             Condicion();
@@ -321,22 +327,22 @@ namespace SEMANTICA
             match(";");
         }
         // For -> for (Asignacion Condición ; Incremento) Bloque_Instrucciones | Instruccion
-        private void For()
+        private void For(bool evaluacion)
         {
             match("for");
             match("(");
-            Asignacion();
+            Asignacion(evaluacion);
             Condicion();
             match(";");
-            Incremento();
+            Incremento(evaluacion);
             match(")");
             if (getContenido() == "{")
-                Bloque_Instrucciones();
+                Bloque_Instrucciones(evaluacion);
             else
-                Instruccion();
+                Instruccion(evaluacion);
         }
         // Incremento -> identificador ++ | --
-        private void Incremento()
+        private void Incremento(bool evaluacion)
         {
             string variable = getContenido();
             //Requerimiento 2. Si no existe la variable, se levanta la excepción.
@@ -362,7 +368,7 @@ namespace SEMANTICA
                 match(tipos.IncrementoTermino);
         }
         // Switch -> switch (Expresion) { Lista_Casos (default: (Lista_Instrucciones_Case | Bloque_Instrucciones)? (break;)? )? }
-        private void Switch()
+        private void Switch(bool evaluacion)
         {
             match("switch");
             match("(");
@@ -370,7 +376,7 @@ namespace SEMANTICA
             stackOperandos.Pop();
             match(")");
             match("{");
-            Lista_Casos();
+            Lista_Casos(evaluacion);
             if (getContenido() == "default")
             {
                 match("default");
@@ -378,7 +384,7 @@ namespace SEMANTICA
                 if (getContenido() != "}" && getContenido() != "{")
                     Lista_Instrucciones_Case();
                 else if (getContenido() == "{")
-                    Bloque_Instrucciones();
+                    Bloque_Instrucciones(evaluacion);
                 if (getContenido() == "break")
                 {
                     match("break");
@@ -387,8 +393,9 @@ namespace SEMANTICA
             }
             match("}");
         }
+
         // Lista_Casos -> case Expresion: (Lista_Instrucciones_Case | Bloque_Instrucciones)? (break;)? (Lista_Casos)?
-        private void Lista_Casos()
+        private void Lista_Casos(bool evaluacion)
         {
             if (getContenido() != "}" && getContenido() != "default")
             {
@@ -399,19 +406,19 @@ namespace SEMANTICA
                 if (getContenido() != "case" && getContenido() != "{")
                     Lista_Instrucciones_Case();
                 else if (getContenido() == "{")
-                    Bloque_Instrucciones();
+                    Bloque_Instrucciones(evaluacion);
                 if (getContenido() == "break")
                 {
                     match("break");
                     match(";");
                 }
-                Lista_Casos();
+                Lista_Casos(evaluacion);
             }
         }
         // Lista_Instrucciones_Case -> Instruccion Lista_Instrucciones_Case?
         private void Lista_Instrucciones_Case()
         {
-            Instruccion();
+            Instruccion(true);
             if (getContenido() != "break" && getContenido() != "case" && getContenido() != "default" && getContenido() != "}")
                 Lista_Instrucciones_Case();
         }
@@ -449,7 +456,7 @@ namespace SEMANTICA
             match("main");
             match("(");
             match(")");
-            Bloque_Instrucciones();
+            Bloque_Instrucciones(true);
         }
         // Expresion -> Termino MasTermino
         private void Expresion()
