@@ -1,5 +1,4 @@
 //Alumno Raúl Cano Briseño 
-using System.Collections.Generic;
 //Requerimiento 1: Actualizar el dominante para variables en la expersion.
 //                 Ejemplo: float x; char y; y=x
 //Requerimiento 2: Actualizar el dominante para el casteo y el valor de la subexpression
@@ -11,7 +10,6 @@ using System.Collections.Generic;
 //Requerimiento 5: Levantar una excepcion cuando la captura no sea un numero 
 //Requerimiento 6: Ejecutar el For();
 using System.Collections.Generic;
-
 namespace SEMANTICA
 {
     public class Lenguaje : Sintaxis
@@ -290,21 +288,26 @@ namespace SEMANTICA
             match("&");
             if (!existeVariable(getContenido()))
             {
-            match(tipos.Identificador);
+                throw new Error("Error de sintáxis: Variable no existe \"" + getContenido() + "\" en la línea " + linea + ".", Log);
+            }
+            string name = getContenido();
             if (evaluacion)
             {
                 string value = "" + Console.ReadLine();
                 //Requerimiento 5 
-                float valor = float.Parse(value);
-                modValor(getContenido(), valor);
+                try
+                {
+                    float valor = float.Parse(value);
+                    modValor(name, valor);
+                }
+                catch (Exception)
+                {
+                    throw new Error("Error de sintaxis, no se puede asignar <" +getContenido()+"> en linea: "+linea, Log);
+                }
             }
+            match(tipos.Identificador);
             match(")");
             match(";");
-            }
-            else 
-            {
-                throw new Error("Error de sintáxis: Variable no existe \"" + getContenido() + "\" en la línea " + linea + ".", Log);
-            }
         }
         // If -> if (Condicion) Bloque_Instrucciones (else Bloque_Instrucciones)?
         private void If(bool evaluacion)
@@ -606,13 +609,18 @@ namespace SEMANTICA
                 {
                     //Requerimiento 2: Actualizar dominande en base a casteo
                     //Saco un elemnto del satck
+
                     //Convierto ese valor al equivalente en casteo
                     //Requerimiento 3:
                     //Ejemplo: si el casteo es char y el Pop regresa un 256
                     //el valor equivalente en casteo es 0
+                    
 
                 }
             }
         }
     }
 }
+
+
+

@@ -1,0 +1,5 @@
+Archivo: prueba.cpp
+Compilado: El 05/10/2022 a las 22:36:16
+
+y = x = 0
+3 5 + 10 1 1 Error de sintaxis, no se puede asignar <d> en linea: 15

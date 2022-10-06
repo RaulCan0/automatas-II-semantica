@@ -57,15 +57,15 @@ public class Lexico : Token
     public Lexico()   //Constructor 1
     {
         linea = 1;
-        Log = new StreamWriter("C:\\EVALUAA\\Prueba.log");
+        Log = new StreamWriter("C:\\SEMANTICA\\Prueba.log");
         Log.AutoFlush = true;
         //Log.WriteLine("Primer constructor");
         Log.WriteLine("Archivo: prueba.cpp");
         Log.WriteLine("Compilado: " + DateTime.Now.ToString("El dd/MM/yyyy a la\'s\' HH:mm:ss")); //Requerimiento 1.
         //Investigar como checar si existe un archivo o no.
-        if (File.Exists(@"C:\EVALUAA\Prueba.cpp"))
+        if (File.Exists(@"C:\SEMANTICA\Prueba.cpp"))
         {
-            archivo = new StreamReader("C:\\EVALUAA\\Prueba.cpp");
+            archivo = new StreamReader("C:\\SEMANTICA\\Prueba.cpp");
         }
         else
         {

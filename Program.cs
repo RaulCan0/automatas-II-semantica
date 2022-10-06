@@ -1,7 +1,9 @@
 ﻿//Alumno Raul Cano Briseño
 using System;
+using System.IO;
 
 namespace SEMANTICA
+
 {
     public class Program
     {
@@ -11,16 +13,24 @@ namespace SEMANTICA
             {
                 Lenguaje a = new Lenguaje();
                 a.Programa();
-                /*while(!a.findArchivo())
-                {
-                    a.nextToken();
-                }*/
+                
+                /*a.match("#");
+                a.match("include");
+                a.match("<");
+                a.match(Token.Tipos.Identificador);
+                a.match(".");
+                a.match("h");
+                a.match(">"); */
+                
+                //while(!a.FinArchivo())
+                //{
+                  //  a.NextToken();
+                //}
                 a.close();
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(e.Message);
-                Console.WriteLine("Fin de compilacion.");
+                
             }
         }
     }
