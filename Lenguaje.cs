@@ -608,6 +608,8 @@ namespace SEMANTICA
                 if (hubocasteo)
                 {
                     //Requerimiento 2: Actualizar dominande en base a casteo
+                    //Saco un elemnto del satck7
+                    //Requerimiento 2: Actualizar dominande en base a casteo
                     //Saco un elemnto del satck
 
                     //Convierto ese valor al equivalente en casteo
