@@ -37,6 +37,19 @@ namespace SEMANTICA
                 Log.WriteLine(v.getNombre() + " " + v.getTipo() + " " + v.getValue());
             }
         }
+        //Requerimiento 3
+        private float Conversion(float valor, Variable.TipoDato casteo)
+        {
+            if(casteo == Variable.TipoDato.Char)
+            {
+                return valor % 256;
+            } else if(casteo == Variable.TipoDato.Int)
+            {
+
+                return valor % 65536;
+            }
+                return valor;
+        }
         private bool existeVariable(string name)
         {
             foreach (Variable v in listaVariables)
@@ -608,10 +621,10 @@ namespace SEMANTICA
                 if (hubocasteo)
                 {
                     //Requerimiento 2: Actualizar dominande en base a casteo
-                    //Saco un elemnto del satck7
-                    //Requerimiento 2: Actualizar dominande en base a casteo
                     //Saco un elemnto del satck
-
+                 float valor = stackOperandos.Pop();
+                    stackOperandos.Push(Conversion(valor, casteo));
+                    dominante = casteo;      
                     //Convierto ese valor al equivalente en casteo
                     //Requerimiento 3:
                     //Ejemplo: si el casteo es char y el Pop regresa un 256
