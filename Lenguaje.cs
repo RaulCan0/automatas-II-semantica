@@ -13,6 +13,9 @@ using System.Collections.Generic;
 //Requerimiento 6.- Ejecutar el for() 
 namespace SEMANTICA
 {
+    using System;
+
+
     public class Lenguaje : Sintaxis
     {
 
@@ -383,12 +386,14 @@ namespace SEMANTICA
         {
             match("for");
             match("(");
+            string variable = getContenido();
             Asignacion(evaluacion);
             //string nombre = getContenido();
             //Requerimiento 4.- Si la condicion no es booleana levanta la excepcion
             float valor = 0;
             bool validarFor;
             int pos = posicion;
+            variable.Length;
             int lineaGuardada = linea;
             int tam = getContenido().Length;
             //b) Agregar un ciclo while despues de validar el for, que se ejecute mientras la condicion sea verdadera
