@@ -1,4 +1,4 @@
-//Alumno Raul Cano Briseño
+//Raúl Cano Briseño
 using System;
 
 namespace SEMANTICA
@@ -7,34 +7,36 @@ namespace SEMANTICA
     {
         public Sintaxis()
         {
-            nextToken();
+            NextToken();
         }
         public Sintaxis(string nombre) : base(nombre)
         {
-            nextToken();
+            NextToken();
         }
-        public void match(String espera)
+
+        public void match(string espera)
         {
             if (espera == getContenido())
             {
-                nextToken();
+                NextToken();
             }
             else
             {
-                //Requerimiento 9: Agregar el número de linea en el error.
-                throw new Error("Error de Sintaxis en linea " + linea + ". " + "Se espera " + espera, Log);
+                //Requerimiento 9 agregar el numero de linea en el error
+                throw new Error("Error de sintaxis, se espera un " +espera+" en linea: "+linea, log);
             }
         }
-        public void match(tipos espera)
+
+        public void match(Tipos espera)
         {
             if (espera == getClasificacion())
             {
-                nextToken();
+                NextToken();
             }
             else
             {
-                //Requerimiento 9: Agregar el número de linea en el error.
-                throw new Error("Error de Sintaxis en linea " + linea + ". " + "Se espera " + espera + ".", Log);
+                //Requerimiento 9 agregar el numero de linea en el error
+                throw new Error("Error de sintaxis, se espera un " +espera+" en linea: "+linea , log);
             }
         }
     }

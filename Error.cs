@@ -1,4 +1,4 @@
-//Alumno Raul Cano Briseño
+//Alumno Raúl Cano Briseño
 using System;
 using System.IO;
 

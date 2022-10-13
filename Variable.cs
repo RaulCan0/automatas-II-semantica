@@ -1,37 +1,41 @@
-//Alumno Raul Cano Briseño
+//Alumno Raúl Cano Briseño
 namespace SEMANTICA
 {
     public class Variable
     {
         public enum TipoDato
         {
-            Char, Int, Float
+            Char,Int,Float
         }
-        string name;
-        float value;
-        TipoDato type;
+        string nombre;
+        float valor;
+        TipoDato tipo;
 
-        public Variable(string name, TipoDato type)
+        public Variable(string nombre, TipoDato tipo)
         {
-            this.name = name;
-            this.type = type;
-            this.value = 0;
+            this.nombre = nombre;
+            this.tipo = tipo;
+            valor = 0;
         }
-        public void setValor(float value)
+
+        public void setValor(float valor)
         {
-            this.value = value;
+            this.valor = valor;
         }
-        public float getValue()
+
+        public float getValor()
         {
-            return this.value;
+            return this.valor;
         }
+
         public string getNombre()
         {
-            return this.name;
+            return this.nombre;
         }
+
         public TipoDato getTipo()
         {
-            return this.type;
+            return this.tipo;
         }
     }
 }

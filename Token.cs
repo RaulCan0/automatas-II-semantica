@@ -1,38 +1,37 @@
-//Alumno Raul Cano Briseño
+//Alumno Raúl Cano Briseño
 namespace SEMANTICA
-
 {
     public class Token
     {
-        private string Contenido;
-        private tipos Clasificacion;
-        public enum tipos
+        private string Contenido = "";
+        private Tipos Clasificacion;
+        public enum Tipos
         {
-            Identificador, Numero, Caracter, Asignacion, Inicializacion,
-            OperadorLogico, OperadorRelacional, OperadorTernario,
-            OperadorTermino, OperadorFactor, IncrementoTermino, IncrementoFactor,
-            FinSentencia, Cadena,
-            TipoDato, Zona, Condicion, Ciclo
+            Identificador,Numero,Caracter,Asignacion,Inicializacion,
+            OperadorLogico,OperadorRelacional,OperadorTernario,
+            OperadorTermino,OperadorFactor,IncrementoTermino,IncrementoFactor,
+            FinSentencia,Cadena,TipoDato,Zona,Condicion,Ciclo
         }
-        public Token()   //Constructor
+
+        public void setContenido(string contenido)
         {
-            this.Contenido = "";
+            this.Contenido = contenido;
         }
-        public void setContenido(string Contenido)
+
+        public void setClasificacion(Tipos clasificacion)
         {
-            this.Contenido = Contenido;
+            this.Clasificacion = clasificacion;
         }
-        public void setClasificacion(tipos Clasificacion)
-        {
-            this.Clasificacion = Clasificacion;
-        }
+
         public string getContenido()
         {
             return this.Contenido;
         }
-        public tipos getClasificacion()
+
+        public Tipos getClasificacion()
         {
             return this.Clasificacion;
         }
+
     }
 }

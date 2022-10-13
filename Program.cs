@@ -1,9 +1,8 @@
-﻿//Alumno Raul Cano Briseño
+﻿//Alumno Raúl Cano Briseño
 using System;
 using System.IO;
 
 namespace SEMANTICA
-
 {
     public class Program
     {
@@ -11,8 +10,12 @@ namespace SEMANTICA
         {
             try
             {
+                
                 Lenguaje a = new Lenguaje();
+
                 a.Programa();
+
+
                 
                 /*a.match("#");
                 a.match("include");
@@ -26,7 +29,7 @@ namespace SEMANTICA
                 //{
                   //  a.NextToken();
                 //}
-                a.close();
+                a.cerrar();
             }
             catch (Exception)
             {
