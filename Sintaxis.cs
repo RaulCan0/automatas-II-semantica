@@ -1,7 +1,6 @@
-//Raúl Cano Briseño
 using System;
 
-namespace SEMANTICA
+namespace Semantica
 {
     public class Sintaxis : Lexico
     {
@@ -14,7 +13,7 @@ namespace SEMANTICA
             NextToken();
         }
 
-        public void match(string espera)
+        public void match(String espera)
         {
             if (espera == getContenido())
             {
@@ -22,7 +21,7 @@ namespace SEMANTICA
             }
             else
             {
-                //Requerimiento 9 agregar el numero de linea en el error
+                //Requerimiento 9 agregar el numero de linea en el erro
                 throw new Error("Error de sintaxis, se espera un " +espera+" en linea: "+linea, log);
             }
         }
@@ -37,7 +36,7 @@ namespace SEMANTICA
             {
                 //Requerimiento 9 agregar el numero de linea en el error
                 throw new Error("Error de sintaxis, se espera un " +espera+" en linea: "+linea , log);
-            }
+            }//
         }
     }
 }

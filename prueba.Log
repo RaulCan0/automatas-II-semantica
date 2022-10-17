@@ -1,7 +1,22 @@
+Primer constructor
 Archivo: prueba.cpp
-12/10/2022 08:50:33 p. m.
+17/10/2022 08:49:56 a. m.
 altura 2 
 = = altura = 4
 i 0 
 = = 0 = 0
-j altura i - j 2 Error de sintaxis, se espera un ( en linea: 16
+j altura i - j 2 i 0 
+= = 0 = 0
+j altura i - j 2 j altura i - j 2 i 0 
+= = 0 = 0
+j altura i - j 2 j altura i - j 2 j altura i - j 2 i 0 
+= = 0 = 0
+j altura i - j 2 j altura i - j 2 j altura i - j 2 j altura i - j 2 i 0 
+= = 0 = 0
+j altura i - j 2 1 1 2 2 
+= = 256 = 256
+a 
+= = a = 0
+y 
+= = a = 256
+Error de semantica: no podemos asignar un valor de tipo <Int> a una variable de tipo <Char> en la linea: 44

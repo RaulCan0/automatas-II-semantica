@@ -1,7 +1,7 @@
-//Alumno Raúl Cano Briseño
+//Raul Cano Briseño
 using System.IO;
 
-namespace SEMANTICA
+namespace Semantica
 {
     public class Lexico : Token
     {
@@ -60,11 +60,11 @@ namespace SEMANTICA
         public Lexico()
         {
             linea = 1;
-            string path = "C:\\SEMANTICA\\prueba.cpp";
+            string path = "prueba.cpp";
             bool existencia = File.Exists(path);
-            log = new StreamWriter("C:\\SEMANTICA\\prueba.Log"); 
+            log = new StreamWriter("prueba.Log"); 
             log.AutoFlush = true;
-            //log.WriteLine("Primer constructor");
+            log.WriteLine("Primer constructor");
             log.WriteLine("Archivo: prueba.cpp");
             log.WriteLine(DateTime.Now);//Requerimiento 1:
             //Investigar como checar si un archivo existe o no existe 
@@ -86,7 +86,7 @@ namespace SEMANTICA
             string path2 = Path.ChangeExtension(nombre, ".log");
             log = new StreamWriter(path2); 
             log.AutoFlush = true;
-            //log.WriteLine("Segundo constructor");
+            log.WriteLine("Segundo constructor");
             log.WriteLine("Archivo: "+nombre);
             log.WriteLine(DateTime.Now);
             if (File.Exists(nombre))
@@ -169,7 +169,7 @@ namespace SEMANTICA
         }
         private int columna(char c)
         {
-            //WS,EF,EL,L, D, .,	E, +, -, =,	:, ;, &, |,	!, >, <, *,	%, /, ", ?,La
+            //WS,EF,EL,L, D, .,	E, +, -, =,	:, ;, &, |,	!, >, <, *,	%, /, ", ?,La, \
             if(FinArchivo())
             {
                 return 1;
@@ -274,7 +274,6 @@ namespace SEMANTICA
             string buffer = "";           
             char c;      
             int estado = 0;
-
             while(estado >= 0)
             {
                 c = (char)archivo.Peek(); //Funcion de transicion
@@ -283,9 +282,9 @@ namespace SEMANTICA
                 if (estado >= 0)
                 {
                     archivo.Read();
-                    posicion ++;
+                    posicion++;
                     if(c == '\n')
-                    {
+                    {   
                         linea++;
                     }
                     if (estado >0)
@@ -324,7 +323,7 @@ namespace SEMANTICA
             }
             if(estado == E)
             {
-                //Requerimiento 9 agregar el numero de linea en el error
+                //Requerimiento numero 9 agregar el numero de linea en el error
                 if (getContenido() [0] == '"')
                 {
                     throw new Error("Error lexico: No se cerro la cadena con \" en linea: "+linea, log);
@@ -347,7 +346,6 @@ namespace SEMANTICA
                 //log.WriteLine(getContenido() + " | " + getClasificacion());
             }
         }
-
         public bool FinArchivo()
         {
             return archivo.EndOfStream;

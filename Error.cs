@@ -1,15 +1,13 @@
-//Alumno Raúl Cano Briseño
 using System;
 using System.IO;
 
-namespace SEMANTICA
+namespace Semantica
 {
     public class Error : Exception
     {
-        public Error(string mensaje, StreamWriter log)
+        public Error(string mensaje, StreamWriter log) : base(mensaje)
         {
-            Console.WriteLine(mensaje);
-            log.WriteLine(mensaje);
+            log.WriteLine(mensaje); 
         }
     }
 }

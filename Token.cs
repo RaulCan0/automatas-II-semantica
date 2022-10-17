@@ -1,5 +1,4 @@
-//Alumno Raúl Cano Briseño
-namespace SEMANTICA
+namespace Semantica
 {
     public class Token
     {

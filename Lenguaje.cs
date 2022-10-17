@@ -1,21 +1,8 @@
-///Alumno Raúl Cano Briseño
+//Raúl Cano Briseño
 using System;
-using System.Collections.Generic;
-//Requerimiento 1.- Actualizar el dominante para variables en la expresion
-//                  Ejemplo: float x; char y; y=x 
-//Requerimiento 2.- Actualizar el dominante para el casteo y el valor de la subexpresion 
-//Requerimiento 3.- Programar un metodo de conversion de un valor a un tipo de dato 
-//                  private float convert(float valor, string tipoDato)
-//                  deberan usar el residuo de la division por %255, por %65535
-//Requerimiento 4.- Evaluar nuevamente la condicion del if, while, o do while con respecto
-//                  al parametro que recibe 
-//Requerimiento 5.- Levantar una excepcion en el scanf cuando la captura no sea un numero
-//Requerimiento 6.- Ejecutar el for() 
-namespace SEMANTICA
+
+namespace Semantica
 {
-    using System;
-
-
     public class Lenguaje : Sintaxis
     {
 
@@ -386,14 +373,12 @@ namespace SEMANTICA
         {
             match("for");
             match("(");
-            string variable = getContenido();
             Asignacion(evaluacion);
             //string nombre = getContenido();
             //Requerimiento 4.- Si la condicion no es booleana levanta la excepcion
             float valor = 0;
             bool validarFor;
             int pos = posicion;
-            variable.Length;
             int lineaGuardada = linea;
             int tam = getContenido().Length;
             //b) Agregar un ciclo while despues de validar el for, que se ejecute mientras la condicion sea verdadera
