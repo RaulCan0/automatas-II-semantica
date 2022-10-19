@@ -1,5 +1,17 @@
 //Raúl Cano Briseño
 using System;
+using System.Collections.Generic;
+
+
+// Requerimiento 1.- Actualizacion:
+//                   a)Agregar el residuo de la division por factor 
+//                   b)Agregar en instruccion los inclementos de termino y de factor 
+//                     (a++, a--, a+=1, a-=1, a*=1, a=/=1, a%=1)
+//                      en donde el 1 puede ser una expresion
+//                   c)Marcar errores semanticos cuando los incrementos de termino o incrementos de factor
+//                     superen el limite de la variable
+//                   d)Considerar el inciso b) y c) para el for
+//                   e)Funcione el Do y el while
 
 namespace Semantica
 {
@@ -390,38 +402,6 @@ namespace Semantica
                     validarFor = false;
                 }
                 match(";");
-                //Incremento(evaluacion);
-                /* string variable = getContenido();
-                //Requerimiento 2.- Si no existe la variable levanta la excepcion
-                if (existeVariable(variable) == false)
-                {
-                    throw new Error("Error: Variable inexistente " + getContenido() + " en la linea: " + linea, log);
-                }
-                match(Tipos.Identificador);
-                if (getContenido() == "++")
-                {
-                    match("++");
-
-                    //si la variable evaluacion es verdadera entonces se modifica el valor de la variable
-                    if (evaluacion)
-                    {
-
-                        //modVariable(variable, getValor(variable) + 1);
-                        valor = getValor(variable) + 1;
-                    }
-                }
-                else
-                {
-                    match("--");
-                    //si la variable evaluacion es verdadera entonces se modifica el valor de la variable
-                    if (evaluacion)
-                    {
-
-                        //modVariable(variable, getValor(variable) - 1);
-                        valor = getValor(variable) - 1;
-                    }
-
-                } */
                 valor = Incremento(evaluacion);
                 
                 
@@ -453,41 +433,7 @@ namespace Semantica
             archivo.BaseStream.Seek(pos, SeekOrigin.Begin);
         }
 
-        //Incremento -> Identificador ++ | --
-        /* private void Incremento(bool evaluacion)
-        {
-
-            string variable = getContenido();
-            //Requerimiento 2.- Si no existe la variable levanta la excepcion
-            if (existeVariable(variable) == false)
-            {
-                throw new Error("Error: Variable inexistente " + getContenido() + " en la linea: " + linea, log);
-            }
-            match(Tipos.Identificador);
-            if (getContenido() == "++")
-            {
-                match("++");
-
-                //si la variable evaluacion es verdadera entonces se modifica el valor de la variable
-                if (evaluacion)
-                {
-
-                    modVariable(variable, getValor(variable) + 1);
-
-                }
-            }
-            else
-            {
-                match("--");
-                //si la variable evaluacion es verdadera entonces se modifica el valor de la variable
-                if (evaluacion)
-                {
-
-                    modVariable(variable, getValor(variable) - 1);
-                }
-
-            }
-        } */
+       
         private float Incremento(bool evaluacion)
         {
             string variable = getContenido();
