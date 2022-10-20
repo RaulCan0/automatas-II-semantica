@@ -20,6 +20,11 @@ namespace Semantica
                 }*/
 
                 a.cerrar();
+               /* {
+                    int b = 3;
+                    b = 4;
+                }
+                b = 5;*/
             }
             catch (Exception e)
             {

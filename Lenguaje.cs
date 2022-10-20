@@ -8,8 +8,12 @@ using System.Collections.Generic;
 //                   b)Agregar en instruccion los inclementos de termino y de factor 
 //                     (a++, a--, a+=1, a-=1, a*=1, a=/=1, a%=1)
 //                      en donde el 1 puede ser una expresion
+//                   c)Programar el destructor para ejecutar el metodo "CerrarArchivo" (garbage colector)
+     // que el destructor se ejecute sin invocar a.close() -- (clase lexico)     
+//                  libreria nueva, contenedor, 
+// Requerimiento 2.- Actualizacion venganza:
 //                   c)Marcar errores semanticos cuando los incrementos de termino o incrementos de factor
-//                     superen el limite de la variable
+//                    superen el limite de la variable
 //                   d)Considerar el inciso b) y c) para el for
 //                   e)Funcione el Do y el while
 
@@ -29,6 +33,11 @@ namespace Semantica
         public Lenguaje(string nombre) : base(nombre)
         {
 
+        }
+        ~Lenguaje()
+        {
+          Console.WriteLine("Destructor");
+          cerrar();
         }
 
         private void addVariable(String nombre, Variable.TipoDato tipo)
