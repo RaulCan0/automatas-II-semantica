@@ -60,17 +60,20 @@ namespace Semantica
         };
         public Lexico()
         {
-            linea = 1;
-            string path = "prueba.cpp";
+            string path = "C:\\SEMANTICA\\prueba.cpp";
             bool existencia = File.Exists(path);
-            log = new StreamWriter("prueba.Log"); 
+            log = new StreamWriter("C:\\SEMANTICA\\prueba.Log"); 
             log.AutoFlush = true;
-            asm = new StreamWriter("prueba.asm");
-            asm.AutoFlush = true;
+            asm = new StreamWriter("C:\\SEMANTICA\\prueba.asm");
+            log.AutoFlush = true;
+
             log.WriteLine("Primer constructor");
             log.WriteLine("Archivo: prueba.cpp");
             log.WriteLine(DateTime.Now);//Requerimiento 1:
             //Investigar como checar si un archivo existe o no existe 
+             log.WriteLine(";Archivo:  prueba.cpp");
+            log.WriteLine(";Fecha:"+ DateTime.Now);
+        
             if (existencia == true)
             {
                 archivo = new StreamReader(path);
@@ -97,7 +100,7 @@ namespace Semantica
             log.WriteLine("Archivo: "+nombre);
             log.WriteLine(";Fecha:"+ DateTime.Now);
 
-             log.WriteLine(";Archivo: "+nombre);
+            log.WriteLine(";Archivo: "+nombre);
             log.WriteLine(";Fecha:"+ DateTime.Now);
             if (File.Exists(nombre))
             {
