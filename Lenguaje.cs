@@ -534,7 +534,7 @@ namespace Semantica
         }
 
         //Condicion -> Expresion operador relacional Expresion
-        private bool Condicion()
+        private bool Condicion(string etiqueta)
         {
             Expresion();
             string operador = getContenido();
@@ -544,9 +544,11 @@ namespace Semantica
             asm.WriteLine("POP AX");
             float e1 = stack.Pop();
             asm.WriteLine("POP BX");
+            asm.WriteLine("CMP AX, BX");
             switch (operador)
             {
                 case ">":
+
                     return e1 > e2;
                 case "<":
                     return e1 < e2;
@@ -555,8 +557,10 @@ namespace Semantica
                 case "<=":
                     return e1 <= e2;
                 case "==":
+                asm.WriteLine("JNE " + etiqueta);
                     return e1 == e2;
                 default:
+                   asm.WriteLine("JE " + etiqueta);
                     return e1 != e2;
             }
         }
