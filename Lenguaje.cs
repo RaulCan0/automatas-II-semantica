@@ -308,7 +308,7 @@ namespace Semantica
             Expresion();
             match(";");
 
-            //hacemos el pop     
+           
             float resultado = stack.Pop();
             log.Write("= " + resultado);
             log.WriteLine();
