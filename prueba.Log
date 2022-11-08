@@ -1,10 +1,7 @@
-Primer constructor
 Archivo: prueba.cpp
-20/10/2022 09:57:15 a. m.
-;Archivo:  prueba.cpp
-;Fecha:20/10/2022 09:57:15 a. m.
+Fecha: 07/11/2022 03:52:47 p. m.
 
-= = 3 5 + 8 * 10 4 - 2 / - = 61
+= = 255 = 255
 
 variables: 
 area Float 0
@@ -15,6 +12,6 @@ a Int 0
 d Int 0
 altura Int 0
 x Float 0
-y Char 61
+y Char 256
 i Int 0
 j Int 0
