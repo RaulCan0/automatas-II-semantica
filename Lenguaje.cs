@@ -596,6 +596,16 @@ namespace Semantica
                     valor %= expresion;
                 }
             }
+            if(getTipo(variable) < dominante)
+            {
+                throw new Error("Error: No se puede asignar un valor de tipo " + getTipo(variable) + " a una variable de tipo " + dominante + " en la linea: " + linea,log);
+            }else if(getTipo(variable) == Semantica.Variable.TipoDato.Char && valor > 255)
+            {
+                throw new Error("Error: No se puede asignar un valor mayor a 255 a una variable de tipo char en la linea: " + linea,log);
+            }else if(getTipo(variable) == Semantica.Variable.TipoDato.Int && valor > 65535)
+            {
+                throw new Error("Error: No se puede asignar un valor mayor a 65535 a una variable de tipo int en la linea: " + linea,log);
+            }
             return valor; 
         }
 
