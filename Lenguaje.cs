@@ -370,58 +370,88 @@ namespace Semantica
             match("while");
             match("(");
             //Requerimiento 4.- Si la condicion no es booleana levanta la excepcion
-            bool validarWhile = Condicion("");
-            if (!evaluacion)
+            bool validarWhile; //m
+            String var = getContenido(); //m
+            int pos = posicion; //m
+            int lin = linea; //m
+            do
             {
-                validarWhile = false;
-            }
-            match(")");
-            if (getContenido() == "{")
-            {
-                if (validarWhile)
+                validarWhile = Condicion(""); //m
+                if (!evaluacion)
                 {
-                    BloqueInstrucciones(evaluacion);
+                    validarWhile = false;
+                }
+                match(")");
+                if (getContenido() == "{")
+                {
+                    if (validarWhile)
+                    {
+                        BloqueInstrucciones(evaluacion);
+                    }
+                    else
+                    {
+                        BloqueInstrucciones(false);
+                    }
                 }
                 else
                 {
-                    BloqueInstrucciones(false);
+                    if (validarWhile)
+                    {
+                        Instruccion(evaluacion);
+                    }
+                    else
+                    {
+                        Instruccion(false);
+                    }
                 }
-            }
-            else
-            {
-                if (validarWhile)
+                if(validarWhile) //m
                 {
-                    Instruccion(evaluacion);
-                }
-                else
-                {
-                    Instruccion(false);
-                }
-            }
+                    posicion = pos - var.Length;
+                    linea = lin;
+                    setPosicion(posicion);
+                    NextToken();
+                } //m
+            } while (validarWhile);
         }
-
         //Do -> do bloque de instrucciones | intruccion while(Condicion)
         private void Do(bool evaluacion)
         {
-            bool validarDo = true;
+            bool validarDo = evaluacion; //m
+            string var; //m
             if (!evaluacion)
             {
                 validarDo = false;
             }
             match("do");
-            if (getContenido() == "{")
+            int pos = posicion; //m
+            int lin = linea; //m
+            do
             {
-                BloqueInstrucciones(evaluacion);
-            }
-            else
-            {
-                Instruccion(evaluacion);
-            }
-            match("while");
-            match("(");
-            //Requerimiento 4.- Si la condicion no es booleana levanta la excepcion
-            validarDo = Condicion("");
-
+                if (getContenido() == "{")
+                {
+                    BloqueInstrucciones(evaluacion);
+                }
+                else
+                {
+                    Instruccion(evaluacion);
+                }
+                match("while");
+                match("(");
+                //Requerimiento 4.- Si la condicion no es booleana levanta la excepcion
+                var = getContenido();  //m
+                validarDo = Condicion("");
+                if (!evaluacion) //m
+                {
+                    validarDo = evaluacion;
+                } //m
+                else if(validarDo) //m
+                {
+                    posicion = pos - 1;
+                    linea = lin;
+                    setPosicion(posicion);
+                    NextToken();
+                } //m
+            } while (validarDo);
             match(")");
             match(";");
         }
