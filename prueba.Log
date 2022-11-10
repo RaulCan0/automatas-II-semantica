@@ -1,17 +1,5 @@
 Archivo: prueba.cpp
-Fecha: 07/11/2022 03:52:47 p. m.
+Fecha: 09/11/2022 07:57:49 a. m.
 
-= = 255 = 255
-
-variables: 
-area Float 0
-radio Float 0
-pi Float 0
-resultado Float 0
-a Int 0
-d Int 0
-altura Int 0
-x Float 0
-y Char 256
-i Int 0
-j Int 0
+= = 0 = 0
+i 3 i Error de sintaxis, se espera un ( en linea: 14

@@ -12,9 +12,9 @@ using System.Collections.Generic;
 //        #libreria especial? contenedor?
 //        #en la clase lexico
 //Requerimiento 2:
-//  c) Marcar errores semanticos cuando los incrementos de termino() o incrementos de factor() superen el limite de la variable
-//  d) Considerar el inciso b y c para el for
-//  e) Correcto funcionamiento del ciclo while y do while
+//  c) Marcar errores semanticos cuando los incrementos de termino() o incrementos de factor() superen el limite de la variable*
+//  d) Considerar el inciso b y c para el for*
+//  e) Correcto funcionamiento del ciclo while y do while*
 //Requerimiento 3:
 //  a) Considerar las variables y los casteos en las expresiones matematicas en ensamblador
 //  B) Considerar el residuo de la division en assembler
@@ -370,13 +370,13 @@ namespace Semantica
             match("while");
             match("(");
             //Requerimiento 4.- Si la condicion no es booleana levanta la excepcion
-            bool validarWhile; //m
-            String var = getContenido(); //m
-            int pos = posicion; //m
-            int lin = linea; //m
+            bool validarWhile; 
+            String var = getContenido(); 
+            int pos = posicion; 
+            int lin = linea; 
             do
             {
-                validarWhile = Condicion(""); //m
+                validarWhile = Condicion(""); 
                 if (!evaluacion)
                 {
                     validarWhile = false;
@@ -404,27 +404,28 @@ namespace Semantica
                         Instruccion(false);
                     }
                 }
-                if(validarWhile) //m
+                if(validarWhile) 
                 {
                     posicion = pos - var.Length;
                     linea = lin;
                     setPosicion(posicion);
                     NextToken();
-                } //m
+                } 
             } while (validarWhile);
         }
+       
         //Do -> do bloque de instrucciones | intruccion while(Condicion)
         private void Do(bool evaluacion)
         {
-            bool validarDo = evaluacion; //m
-            string var; //m
+             bool validarDo = evaluacion; 
+            string var; 
             if (!evaluacion)
             {
                 validarDo = false;
             }
             match("do");
-            int pos = posicion; //m
-            int lin = linea; //m
+            int pos = posicion; 
+            int lin = linea; 
             do
             {
                 if (getContenido() == "{")
@@ -438,23 +439,24 @@ namespace Semantica
                 match("while");
                 match("(");
                 //Requerimiento 4.- Si la condicion no es booleana levanta la excepcion
-                var = getContenido();  //m
+                var = getContenido();  
                 validarDo = Condicion("");
-                if (!evaluacion) //m
+                if (!evaluacion) 
                 {
                     validarDo = evaluacion;
-                } //m
-                else if(validarDo) //m
+                } 
+                else if(validarDo) 
                 {
                     posicion = pos - 1;
                     linea = lin;
                     setPosicion(posicion);
                     NextToken();
-                } //m
+                } 
             } while (validarDo);
             match(")");
             match(";");
         }
+        
         //For -> for(Asignacion Condicion; Incremento) BloqueInstruccones | Intruccion 
         private void For(bool evaluacion)
         {
