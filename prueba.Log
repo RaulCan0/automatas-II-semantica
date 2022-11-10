@@ -1,5 +1,17 @@
 Archivo: prueba.cpp
-Fecha: 09/11/2022 07:57:49 a. m.
+Fecha: 10/11/2022 09:46:34 a. m.
 
-= = 0 = 0
-i 3 i Error de sintaxis, se espera un ( en linea: 14
+= = 1 = 1
+i 20 i 2 i 20 i 2 i 20 i 2 i 20 i 2 i 20 i 2 i 20 i 2 
+variables: 
+area Float 0
+radio Float 0
+pi Float 0
+resultado Float 0
+a Int 0
+d Int 0
+altura Int 0
+x Float 0
+y Char 0
+i Int 32
+j Int 0
